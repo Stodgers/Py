@@ -17,7 +17,6 @@ for i in range(1,11):
     L2.append(i+1)
 print(L1)
 
-
 L = zip(L1,L2)
 print (L)
 x = [1, 2, 3]
