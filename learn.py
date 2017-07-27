@@ -245,3 +245,6 @@ print(sorted(L,key = abs))
 L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 print(sorted(L,key=lambda x :x[0]))
 print(sorted(L,key=lambda x :x[1],reverse=True))
+
+ll = list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+print(ll)
