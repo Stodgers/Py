@@ -248,3 +248,14 @@ print(sorted(L,key=lambda x :x[1],reverse=True))
 
 ll = list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
 print(ll)
+
+seq = []
+for i in range(5):
+    seq.append(i*i)
+print (seq)
+
+def xx(a):
+    return lambda b:a+b
+
+ll = [x for x in range(1,5)]
+print(reduce(lambda x,y:x+y,ll))
