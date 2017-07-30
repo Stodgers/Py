@@ -259,3 +259,6 @@ def xx(a):
 
 ll = [x for x in range(1,5)]
 print(reduce(lambda x,y:x+y,ll))
+import functools
+int2 = functools.partial(int,base=2)
+print(int2('10000000'))
