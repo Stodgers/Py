@@ -422,3 +422,53 @@ ss = person()
 ss.score = 60
 print(person.score)
 '''
+class stud(object):
+    @property
+    def score(self):
+        return (self._score)
+    @score.setter
+    def score(self,value):
+        if not isinstance(value,int):
+            raise ValueError('score must be an integer!')
+        if value < 0 or value > 100:
+            raise ValueError('score must between 0 ~ 100!')
+        self._score = value
+
+
+
+
+s = stud()
+s.score = 79
+print(s.score)
+
+class Screen(object):
+    @property
+    def width(self):
+        return self._width
+    @width.setter
+    def width(self,va):
+        if not isinstance(va, int) or va<0:
+            raise ValueError('Error!')
+        else:
+            self._width = va
+
+    @property
+    def height(self):
+        return self._height
+    @height.setter
+    def height(self,va):
+        if not isinstance(va,int) or va<0:
+            raise ValueError('Error!')
+        else :
+            self._height = va
+
+    @property
+    def resolution(self):
+        return self._height*self._width
+
+
+s = Screen()
+s.width = 1024
+s.height = 768
+print(s.resolution)
+assert s.resolution == 786432, '1024 * 768 = %d ?' % s.resolution
