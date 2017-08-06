@@ -1,6 +1,8 @@
 import os
 import math
+import types
 from collections import Iterator
+from  types import MethodType
 for i in os.listdir('D:'):
     print(i)
 
@@ -262,3 +264,161 @@ print(reduce(lambda x,y:x+y,ll))
 import functools
 int2 = functools.partial(int,base=2)
 print(int2('10000000'))
+def cal(*num):
+    ans = 0
+    for i in num:
+        ans += i
+    return ans
+ll = [i for i in range(1,11)]
+print(cal(*ll))
+def person(name, age, **kw):
+    print('name:', name, 'age:', age, 'other:', kw)
+tu = {'gender': 'M', 'job': 'Engineer'}
+person('mayuchi',24,**tu)
+
+def f1(a, b, c=0, *args, **kw):
+    print('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)
+def f2(a, b, c=0, *, d, **kw):
+    print('a =', a, 'b =', b, 'c =', c, 'd =', d, 'kw =', kw)
+args = (1, 2, 3)
+kw = {'d': 88, 'x': '#'}
+f1(*args, **kw)
+f2(*args, **kw)
+
+class fruit(object):
+    def __init__(self,name,price,weight):
+        self.name = name
+        self.price = price
+        self.weight = weight
+    def fruit_print(self):
+        print("%s : %s %s"%(self.name,self.price,self.weight))
+
+apple = fruit("apple",13,200)
+apple.fruit_print()
+print(apple.name)
+
+class Student(object):
+    def __init__(self,name,score):
+        self.__name = name
+        self.__score = score
+    def print_score(self):
+        print("%s: %s"%(self.__name,self.__score))
+    def getname(self):
+        return self.__name
+    def getscore(self):
+        return self.__score
+    def setscore(self,score):
+        if 0<= score <=100 :
+            self.__score = score
+        else:
+            print("score Error!!!!")
+
+mayc = Student('mayc199',99)
+print(mayc.getname(),mayc.getscore())
+mayc.setscore(88)
+print(mayc.getscore())
+
+class animal(object):
+    def run(self):
+        print('Animal is running...')
+class dog(animal):
+    def run(self):
+        print('dog is running...')
+class cat(animal):
+    def run(self):
+        print('cat is runnung...')
+
+
+ca = cat()
+ca.run()
+print(isinstance(ca,animal))
+
+def run_twice(an):
+    an.run()
+    an.run()
+
+class tor(animal):
+    def run(self):
+        print('tor is running slowly..')
+run_twice(tor())
+
+class Ptimer(object):
+    def run(self):
+        print('Start..')
+
+run_twice(Ptimer())
+
+print(type('123112233'))
+
+def fn():
+    pass
+print(isinstance(type(fn),types.FunctionType))
+print(types.FunctionType==type(fn))
+print(type(abs)==types.BuiltinFunctionType)
+
+class animal(object):
+    pass
+
+class Dog(animal):
+    pass
+
+class Husky(Dog):
+    pass
+
+a = animal()
+d = Dog()
+h = Husky()
+
+print(isinstance(h,animal))
+
+class studentt(object):
+    pass
+    #__slots__ = ('name','age')
+s = studentt()
+s.name = 'mayc199'
+print(s.name)
+
+
+def set_age(self, age):
+    self.age = age
+
+studentt.set_age = set_age
+s.set_age(100)
+print(s.age)
+
+class sblx(object):
+    __slots__ = ('name','na')
+
+s = sblx()
+s.name = 'sb'
+s.na = 'jb'
+
+print(s.name,s.na)
+
+class genas(sblx):
+    pass
+
+ss = genas()
+ss.score = 0
+print(ss.score)
+
+class person(object):
+    __slots__ = ('name', 'age')
+
+
+class stu(person):
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+    def printt(self):
+        print('%s\'s age is %s'%(self.name,self.age))
+
+
+s = stu('hahah','12')
+s.printt()
+
+'''
+ss = person()
+ss.score = 60
+print(person.score)
+'''
