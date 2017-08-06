@@ -422,3 +422,4 @@ ss = person()
 ss.score = 60
 print(person.score)
 '''
+
