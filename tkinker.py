@@ -44,6 +44,3 @@ label.grid()
 button = Button(root,text = '开始爬取',font = ('微软雅黑',10),command = bushh)
 button.grid()
 root.mainloop()
-
-
-
