@@ -472,3 +472,23 @@ s.width = 1024
 s.height = 768
 print(s.resolution)
 assert s.resolution == 786432, '1024 * 768 = %d ?' % s.resolution
+
+from tkinter import *
+
+def cb1():
+    print('button1 clicked')
+def printEventInfo(event):
+    print('event.time = ', event.time)
+    print('event.type = ', event.type)
+    print('event.WidgetId = ', event.widget)
+    print('event.KeySymbol = ', event.keysym)
+def cb3():
+    print('button3 clicked')
+root = Tk()
+b1 = Button(root, text='Button1', command=cb1)
+b3 = Button(root, text='Button3', command=cb3)
+b1.pack()
+
+b3.pack()
+
+root.mainloop()
