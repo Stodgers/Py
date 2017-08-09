@@ -435,8 +435,6 @@ class stud(object):
         self._score = value
 
 
-
-
 s = stud()
 s.score = 79
 print(s.score)
@@ -472,7 +470,7 @@ s.width = 1024
 s.height = 768
 print(s.resolution)
 assert s.resolution == 786432, '1024 * 768 = %d ?' % s.resolution
-
+'''
 from tkinter import *
 
 def cb1():
@@ -492,3 +490,68 @@ b1.pack()
 b3.pack()
 
 root.mainloop()
+'''
+class Animal(object):
+    pass
+
+# 大类:
+class Mammal(Animal):
+    pass
+
+class Runnable(object):
+    def run(self):
+        print('Running...')
+
+class Flyable(object):
+    def fly(self):
+        print('Flying...')
+
+class Bird(Animal):
+    pass
+
+# 各种动物:
+class Dog(Mammal,Runnable):
+    pass
+
+class Bat(Mammal,Flyable):
+    pass
+
+class Parrot(Bird):
+    pass
+
+class Ostrich(Bird):
+    pass
+
+class Student(object):
+    @property
+    def nn(self):
+        return self.name
+    @nn.setter
+    def nn(self,value):
+        self.name = value
+
+s = Student()
+s.name = '2333'
+print(s.name)
+
+class Student(object):
+    def __init__(self, name):
+        self.name = name
+    def __str__(self):
+        return ( 'Student object (name: %s)' % self.name)
+    __repr__ = __str__
+
+s = Student('mike')
+
+class fib(object):
+    def __init__(self):
+        self.a,self.b = 0,1
+    def __iter__(self):
+        return self
+    def __next__(self):
+        self.a,self.b = self.b,self.a+self.b
+        if self.b>10000:
+            raise StopIteration()
+        return  self.a
+for n in fib():
+    print(n)
