@@ -553,5 +553,43 @@ class fib(object):
         if self.b>10000:
             raise StopIteration()
         return  self.a
-for n in fib():
-    print(n)
+
+class Fib(object):
+    def __getitem__(self, n):
+        if isinstance(n,int):
+            a,b = 1,1
+            for x in range(n):
+                a,b = b,a+b
+            return a
+        elif isinstance(n,slice):
+            t = n.start
+            p = n.stop
+            if t is None:
+                t = 0
+            a,b = 1,1
+            L = []
+            for x in range(p):
+                if x >= t:
+                    L.append(a)
+                a,b = b,a+b
+            return L
+
+f = Fib()
+print("----------------")
+print(f[9])
+print(f[:10])
+
+class Chain(object):
+
+    def __init__(self, path=''):
+        self._path = path
+
+    def __getattr__(self, path):
+        return Chain('%s/%s' % (self._path, path))
+
+    def __str__(self):
+        return self._path
+
+    __repr__ = __str__
+print(Chain().status.user.timeline.list)
+
