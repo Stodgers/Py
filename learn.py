@@ -593,3 +593,18 @@ class Chain(object):
     __repr__ = __str__
 print(Chain().status.user.timeline.list)
 
+class person(object):
+    def __init__(self,name,gender):
+        self.name = name
+        self.gender = gender
+    def __str__(self):
+        return ('%s: %s'%(self.name,self.gender))
+
+class student(person):
+    def __init__(self,name,gender,score):
+        super(student,self).__init__(name,gender)
+        self.score = score
+    def __str__(self):
+        return '%s: %s %s'%(self.name,self.gender,self.score)
+ss = student('mike','male',88)
+print(ss)
