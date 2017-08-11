@@ -591,6 +591,7 @@ class Chain(object):
         return self._path
 
     __repr__ = __str__
+ts = '23'
 print(Chain().status.user.timeline.list)
 
 class person(object):
@@ -608,3 +609,38 @@ class student(person):
         return '%s: %s %s'%(self.name,self.gender,self.score)
 ss = student('mike','male',88)
 print(ss)
+
+class ss(object):
+    def __init__(self):
+        self.name = 'mike'
+    def __getattr__(self, item):
+        if item == 'score':
+            return 99
+s = ss()
+print(s.name)
+print(s.score)
+
+class ent(object):
+    def __init__(self,name):
+        self.name = name
+    def __call__(self):
+        print('my name is %s' % self.name)
+
+ss = ent('mek')
+ss()
+class Student(object):
+    def __init__(self):
+        self.name = 'Michael'
+    def __getattr__(self, attr):
+        if attr=='score':
+            return 99
+        if attr=='age':
+            return lambda: 25
+        raise AttributeError('\'Student\' object has no attribute \'%s\'' % attr)
+
+s = Student()
+print(s.name)
+print(s.score)
+print(s.age())
+# AttributeError: 'Student' object has no attribute 'grade'
+#print(s.grade)
