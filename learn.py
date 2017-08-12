@@ -740,7 +740,5 @@ class IntegerField(Field):
     def __init__(self,name):
         super(IntegerField, self).__init__(name,'bigint')
 
-
-
 u = User(id=1234, name='mike', email='23@233.com', passward='password')
 u.save()
