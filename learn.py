@@ -1,8 +1,10 @@
+
 import os
 import math
 import types
 from collections import Iterator
 from  types import MethodType
+from enum import Enum
 for i in os.listdir('D:'):
     print(i)
 
@@ -645,3 +647,100 @@ print(s.age())
 # AttributeError: 'Student' object has no attribute 'grade'
 #print(s.grade)
 
+from enum import Enum
+
+class Color(Enum):
+    red = 1
+    orange = 2
+    yellow = 3
+    green = 4
+    blue = 5
+    indigo = 6
+    purple = 7
+print(Color['red'])
+for color in Color:
+    print(color)
+for color in Color.__members__.items():
+    print(color)
+
+
+def fn(self,name = 'world'):
+    print('hello,%s'%name)
+
+Hello = type('Hello',(object,),dict(hello = fn))
+h = Hello()
+h.hello()
+class ModelMetaclass(type):
+
+    def __new__(cls, name, bases, attrs):
+        if name=='Model':
+            return type.__new__(cls, name, bases, attrs)
+        print('Found model: %s' % name)
+        mappings = dict()
+        for k, v in attrs.items():
+            if isinstance(v, Field):
+                print('Found mapping: %s ==> %s' % (k, v))
+                mappings[k] = v
+        for k in mappings.keys():
+            attrs.pop(k)
+        attrs['__mappings__'] = mappings # 保存属性和列的映射关系
+        attrs['__table__'] = name # 假设表名和类名一致
+        return type.__new__(cls, name, bases, attrs)
+class ListMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['add'] = lambda self, value: self.append(value)
+        return type.__new__(cls, name, bases, attrs)
+class MyList(list, metaclass=ListMetaclass):
+    pass
+
+L = MyList()
+L.add(1)
+print(L)
+class Model(dict, metaclass=ModelMetaclass):
+    def __init__(self, **kw):
+        super(Model, self).__init__(**kw)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r"'Model' object has no attribute '%s'" % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
+    def save(self):
+        fields = []
+        params = []
+        args = []
+        for k, v in self.__mappings__.items():
+            fields.append(v.name)
+            params.append('?')
+            args.append(getattr(self, k, None))
+        sql = 'insert into(%s) (%s) values (%s)' % (self.__table__, ','.join(fields), ','.join(params))
+        print('SQL: %s' % sql)
+        print('ARGS: %s' % str(args))
+class User(Model):
+    id = IntegerField('id')
+    name = StringField('username')
+    email = StringField('email')
+    passward = StringField('password')
+
+
+class Field(object):
+    def __init__(self, name, column_type):
+        self.name = name
+        self.column_type = column_type
+    def __str__(self):
+        return '<%s:%s>' % (self.__class__.__name__,self.name)
+class StringField(Field):
+    def __init__(self,name):
+        super(StringField,self).__init__(name,'varchar(100)')
+class IntegerField(Field):
+    def __init__(self,name):
+        super(IntegerField, self).__init__(name,'bigint')
+
+
+
+u = User(id=1234, name='mike', email='23@233.com', passward='password')
+u.save()
