@@ -670,6 +670,7 @@ def fn(self,name = 'world'):
 Hello = type('Hello',(object,),dict(hello = fn))
 h = Hello()
 h.hello()
+'''
 class ModelMetaclass(type):
 
     def __new__(cls, name, bases, attrs):
@@ -742,3 +743,54 @@ class IntegerField(Field):
 
 u = User(id=1234, name='mike', email='23@233.com', passward='password')
 u.save()
+'''
+try:
+    print('try...')
+    r = 10 / 2
+    print('result:', r)
+except ZeroDivisionError as e:
+    print('except:', e)
+finally:
+    print('finally...')
+print('END')
+
+try:
+    print('try...')
+    r = 10/0
+    print('result: %d'%(r))
+except ValueError as e:
+    print('ec 1')
+    print('ValueError:',e)
+except ZeroDivisionError as e:
+    print('ec 1')
+    print('ZeroDivisionError:',e)
+else:
+    print('no error!')
+finally:
+    print('finally..')
+
+def foo(s):
+    n = int(s)
+    assert n != 0, 'n is zero!'
+    return 10 / n
+
+def main():
+    foo('0')
+
+#main()
+
+'''
+程序中如果到处充斥着assert，和print()相比也好不到哪去。不过，启动Python解释器时可以用-O参数来关闭assert：
+
+$ python3 -O err.py
+Traceback (most recent call last):
+  ...
+ZeroDivisionError: division by zero
+
+import logging
+logging.basicConfig(level=logging.INFO)
+s = '0'
+n = int(s)
+logging.info('n = %d' % n)
+print(10 / n)
+'''
