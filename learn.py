@@ -743,7 +743,7 @@ class IntegerField(Field):
 
 u = User(id=1234, name='mike', email='23@233.com', passward='password')
 u.save()
-'''
+
 try:
     print('try...')
     r = 10 / 2
@@ -779,7 +779,7 @@ def main():
 
 #main()
 
-'''
+
 程序中如果到处充斥着assert，和print()相比也好不到哪去。不过，启动Python解释器时可以用-O参数来关闭assert：
 
 $ python3 -O err.py
@@ -794,5 +794,45 @@ n = int(s)
 logging.info('n = %d' % n)
 print(10 / n)
 '''
+ff = open('123.txt')
+print(ff.read())
+ff.close()
+print('-----------')
+try:
+    f = open('123.txt','r')
+    print(f.read())
+except IOError as e:
+    print('IOError!',e)
+finally:
+    if f:
+        f.close()
+print('----------2')
+#with open('123.txt') as f:
+#    print(f.read())
 
+#f.close()
+f = open('123.txt')
+for line in f.readlines():
+    print(line.strip()) # 把末尾的'\n'删掉
+f.close()
+print('-----------1')
+f = open('123.txt')
+print(f.readlines())
+f.close()
+print('-----------12')
+f = open('123.txt')
+LL=[]
+for i in f.readlines():
+    LL.append(i.strip())
+f.close()
+print(LL)
+'''
+with open('123.txt','a') as f:
+    f.write('\nhello word!')
+print('--------------')
+'''
+with open('123.txt',) as f:
+    with open('123-1.txt','w+') as s:
+        for i in f.readlines():
+            s.write(i.replace('hello','hi'))
 
