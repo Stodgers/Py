@@ -1,10 +1,12 @@
-
 import os
 import math
 import types
 from collections import Iterator
 from  types import MethodType
 from enum import Enum
+from io import StringIO
+from io import BytesIO
+import os
 for i in os.listdir('D:'):
     print(i)
 
@@ -835,4 +837,31 @@ with open('123.txt',) as f:
     with open('123-1.txt','w+') as s:
         for i in f.readlines():
             s.write(i.replace('hello','hi'))
+f = StringIO()
+f.write('1')
+f.write('2')
+f.write('3')
+f.write('4')
+f.write('5')
+print(f.getvalue())
+ff = StringIO('Hello!\nHi!\nGoodbye!')
+while True:
+    s = ff.readline()
+    if s=='': break
+    print(s.strip())
 
+f = BytesIO()
+f.write('中文！！'.encode('utf-8'))
+print(f.getvalue())
+
+print(os.name)
+print(os.environ)
+print(os.environ.get('path'))
+print(os.path.abspath(''))
+os.path.join('D:\Py', 'testdir')
+#os.mkdir('D:\Py\\testdir')
+#os.rmdir('D:\Py\\testdir')
+#os.rename('123-1.txt','123-11.txt')
+#os.remove('123-11.txt')
+ll = [x for x in os.listdir() if os.path.isfile(x) and os.path.splitext(x)[1]=='.py']
+print(ll)
