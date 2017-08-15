@@ -892,3 +892,10 @@ print(now)
 tt = 123456789.0
 print(datetime.fromtimestamp(tt))
 print(datetime.utcfromtimestamp(tt))
+
+cd = datetime.strptime('2017.8.15 17:04','%Y.%m.%d %H:%M')
+print(cd)
+
+now = datetime.now()
+cstr = now.strftime('%Y %d of %m %H:%M:%S %a')
+print(cstr)
