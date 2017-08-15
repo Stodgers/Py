@@ -865,3 +865,30 @@ os.path.join('D:\Py', 'testdir')
 #os.remove('123-11.txt')
 ll = [x for x in os.listdir() if os.path.isfile(x) and os.path.splitext(x)[1]=='.py']
 print(ll)
+print('------------')
+from multiprocessing import Pool
+import os, time, random
+'''
+def long_time_task(name):
+    print('Run task %s (%s)...' % (name, os.getpid()))
+    start = time.time()
+    time.sleep(random.random() * 3)
+    end = time.time()
+    print('Task %s runs %0.2f seconds.' % (name, (end - start)))
+
+if __name__=='__main__':
+    print('Parent process %s.' % os.getpid())
+    p = Pool(4)
+    for i in range(5):
+        p.apply_async(long_time_task, args=(i,))
+    print('Waiting for all subprocesses done...')
+    p.close()
+    p.join()
+    print('All subprocesses done.')
+'''
+from datetime import datetime
+now = datetime.now()
+print(now)
+tt = 123456789.0
+print(datetime.fromtimestamp(tt))
+print(datetime.utcfromtimestamp(tt))
