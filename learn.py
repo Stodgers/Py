@@ -901,7 +901,8 @@ print(cd)
 now = datetime.now()
 cstr = now.strftime('%Y %d of %m %H:%M:%S %a')
 print(cstr)
-from collections import namedtuple,deque,defaultdict,OrderedDict
+
+from collections import namedtuple,deque,defaultdict,OrderedDict,Counter
 point = namedtuple('point',['x','y'])
 p = point(1,2)
 print(p.x)
@@ -948,3 +949,15 @@ class LastUpdatedOrderedDict(OrderedDict):
         else:
             print('add:', (key, value))
         OrderedDict.__setitem__(self, key, value)
+
+c = Counter()
+for ch in 'uhguihbkjbgjkhg':
+    c[ch] += 1
+print(c)
+import base64
+print(base64.b64encode(b'binarystring'))
+def safe_base64_decode(s):
+    return base64.b64decode(s+b'='*(4-(len(s)%4)))
+assert b'abcd' == safe_base64_decode(b'YWJjZA=='), safe_base64_decode('YWJjZA==')
+assert b'abcd' == safe_base64_decode(b'YWJjZA'), safe_base64_decode('YWJjZA')
+print('Pass')
