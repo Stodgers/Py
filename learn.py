@@ -7,6 +7,8 @@ from enum import Enum
 from io import StringIO
 from io import BytesIO
 import os
+from collections import namedtuple,deque
+
 for i in os.listdir('D:'):
     print(i)
 
@@ -899,3 +901,18 @@ print(cd)
 now = datetime.now()
 cstr = now.strftime('%Y %d of %m %H:%M:%S %a')
 print(cstr)
+
+point = namedtuple('point',['x','y'])
+p = point(1,2)
+print(p.x)
+print(p.y)
+
+q = deque(['a', 'b', 'c'])
+q.append('x')
+print(q)
+q.appendleft('y')
+print(q)
+q.pop()
+print(q)
+q.popleft()
+print(q)
