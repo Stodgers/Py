@@ -7,7 +7,7 @@ from enum import Enum
 from io import StringIO
 from io import BytesIO
 import os
-from collections import namedtuple,deque
+
 
 for i in os.listdir('D:'):
     print(i)
@@ -901,7 +901,7 @@ print(cd)
 now = datetime.now()
 cstr = now.strftime('%Y %d of %m %H:%M:%S %a')
 print(cstr)
-
+from collections import namedtuple,deque,defaultdict,OrderedDict
 point = namedtuple('point',['x','y'])
 p = point(1,2)
 print(p.x)
@@ -916,3 +916,17 @@ q.pop()
 print(q)
 q.popleft()
 print(q)
+
+dd = defaultdict(lambda :'N/A')
+dd['key'] = 'abc'
+print(dd['key'])
+print(dd['kk'])
+od = OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+print(od)
+od = OrderedDict()
+od['z'] = 1
+od['y'] = 2
+od['x'] = 3
+print(od)
+print(list(od.keys()))
+print(list(od.values()))
