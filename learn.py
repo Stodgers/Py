@@ -961,3 +961,12 @@ def safe_base64_decode(s):
 assert b'abcd' == safe_base64_decode(b'YWJjZA=='), safe_base64_decode('YWJjZA==')
 assert b'abcd' == safe_base64_decode(b'YWJjZA'), safe_base64_decode('YWJjZA')
 print('Pass')
+
+import hashlib
+md5 = hashlib.md5()
+md5.update('how to use md5 in python hashlib?'.encode('utf-8'))
+print(md5.hexdigest())
+
+sh1 = hashlib.sha1()
+sh1.update('how to use md5 in python hashlib?'.encode('utf-8'))
+print(sh1.hexdigest())
