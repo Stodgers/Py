@@ -992,7 +992,7 @@ def login(user, password):
     return False
 print(login('bob', 'abc999'))
 
-dbb = {}
+db = {}
 def get_md5(password):
     md5 = hashlib.md5()
     md5.update(password.encode('utf-8'))
@@ -1014,10 +1014,14 @@ print('请注册')
 print('请输入用户名和密码！')
 username = input('username = ')
 password = input('password = ')
+time.sleep(1)
 register(username,password)
-print('请输入用户名和密码！')
+time.sleep(1)
+print('请登入！')
 username = input('username = ')
 password = input('password = ')
+print('正在登录。。。')
+time.sleep(1)
 login(username,password)
 
 
