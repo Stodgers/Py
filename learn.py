@@ -970,3 +970,54 @@ print(md5.hexdigest())
 sh1 = hashlib.sha1()
 sh1.update('how to use md5 in python hashlib?'.encode('utf-8'))
 print(sh1.hexdigest())
+
+
+def calc_md5(password):
+    cc = str(password)
+    md5 = hashlib.md5()
+    md5.update(cc.encode('utf-8'))
+    return md5.hexdigest()
+print(calc_md5(888888))
+
+db = {
+    'michael': 'e10adc3949ba59abbe56e057f20f883e',
+    'bob': '878ef96e86145580c38c87f0410ad153',
+    'alice': '99b1c2188db85afee403b1536010c2c9'
+}
+def login(user, password):
+    u = str(user)
+    p = str(password)
+    if db[u] ==calc_md5(p):
+        return True
+    return False
+print(login('bob', 'abc999'))
+
+dbb = {}
+def get_md5(password):
+    md5 = hashlib.md5()
+    md5.update(password.encode('utf-8'))
+    return md5.hexdigest()
+
+def register(username, password):
+    db[username] = get_md5(password + username + 'the-Salt')
+    print('注册成功，请登录')
+
+def login(username, password):
+    if db[username] == get_md5(password + username + 'the-Salt'):
+        print('登陆成功！')
+    elif db[username] == 0:
+        print('用户不存在！')
+    else:
+        print('用户名或密码错误！')
+
+print('请注册')
+print('请输入用户名和密码！')
+username = input('username = ')
+password = input('password = ')
+register(username,password)
+print('请输入用户名和密码！')
+username = input('username = ')
+password = input('password = ')
+login(username,password)
+
+
