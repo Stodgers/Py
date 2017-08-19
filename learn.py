@@ -1023,5 +1023,3 @@ password = input('password = ')
 print('正在登录。。。')
 time.sleep(1)
 login(username,password)
-
-
