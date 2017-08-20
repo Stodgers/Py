@@ -1009,7 +1009,7 @@ def login(username, password):
         print('用户不存在！')
     else:
         print('用户名或密码错误！')
-
+'''
 print('请注册')
 print('请输入用户名和密码！')
 username = input('username = ')
@@ -1023,3 +1023,18 @@ password = input('password = ')
 print('正在登录。。。')
 time.sleep(1)
 login(username,password)
+'''
+import itertools
+na = itertools.count(1)
+ss = itertools.takewhile(lambda x: x<=10,na)
+print(list(ss))
+#for n in na:
+#    print(n)
+nac = itertools.repeat('123',3)
+for n in nac:
+    print(n)
+for c in itertools.chain('ABCasd'):
+    print(c)
+
+for key,group in itertools.groupby('AaaBBbCCsdSDGE',lambda x:x.upper()):
+    print(key,list(group))
