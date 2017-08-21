@@ -1079,3 +1079,26 @@ for i in range(28):
             <<t>>
              <h>
 '''
+
+with open('101.txt','r+') as f:
+    with open('101-1.txt','w+') as e:
+        for i in f.readlines():
+            e.write(i.capitalize())
+
+
+'''
+def tag(name):
+    print("<%s>" % name)
+    yield
+    print("</%s>" % name)
+
+with tag("h1"):
+    print("hello")
+    print("world")
+'''
+from contextlib import closing
+from urllib.request import urlopen
+
+with closing(urlopen('https://www.baidu.com')) as page:
+    for line in page:
+        print(line)
