@@ -67,7 +67,7 @@ draw.text((120,170),'萌萌哒',fill=co,font=myFont)
 #draw.ellipse((width-40,0,width,40),fill='red',outline='red')
 #draw.text((width-28,0),'1',fill='white',font=myFont)
 im.save('pdd1.jpg')
-
+'''
 
 def rantxt():
     txt = []
@@ -94,9 +94,9 @@ for i in range(6):
     draw.text((40*i+15,5),rantxt(),fill=tc(),font=font)
 #im = im.filter(ImageFilter.BLUR)
 #im.show()
-#draw.ellipse((width-20,0,width,20),fill='red')
+draw.ellipse((width-20,0,width,20),fill='red')
 myfont = ImageFont.truetype('xg.ttf',15)
-#draw.text((width-14,0),'1',fill='white',font=myfont)
-im.save("code.jpg")
+draw.text((width-14,0),'1',fill='white',font=myfont)
+#im = im.filter(ImageFilter.BLUR)
+im.show()
 
-'''
