@@ -12,7 +12,7 @@ def get(a):
     rr0 = r'.html">(.*?)</a>'
     jg0 = re.compile(rr0)
     ans0 = re.findall(jg0, html)
-    rr1 = r'data-mp4=(.*?)\.mp4'
+    rr1 = r'data-mp4="(.*?)\.mp4'
     jg1 = re.compile(rr1)
     ans1 = re.findall(jg1,html)
     #for i in ans1 j in ans0:
@@ -21,21 +21,22 @@ def get(a):
     LL = []
     tt = len(ans1)
     for i in range(tt):
-        ss = (ans0[i]+':\n'+ans1[i]+'.mp4"')
+        ss = (ans0[i]+':\n'+ans1[i]+'.mp4'+'\n')
         #print(ss)
         #LL.append(ss)
-        text.insert(END,str(ss)+'\n\n')
+        print(ss)
+        #text.insert(END,str(ss)+'\n\n')
 def bushh():
 
-    for i in range(10,14):
+    for i in range(1,10):
         get(i)
     varl.set('爬取完毕...')
 
 root = Tk()
 root.title('Clock')
 root.geometry('+200+200')
-text = scrolledtext.ScrolledText(root,font = ('微软雅黑',10))
-text.grid()
+#text = scrolledtext.ScrolledText(root,font = ('微软雅黑',10))
+#text.grid()
 
 varl = StringVar()
 label = Label(root,font = ('微软雅黑',10),fg = 'red',textvariable = varl)
