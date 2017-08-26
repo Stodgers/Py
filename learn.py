@@ -1163,48 +1163,101 @@ print('Weather:', str(weather))
 
 from html.parser import HTMLParser
 from html.entities import name2codepoint
+from urllib import request
 
 class MyHTMLParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         print('<%s>' % tag)
-
     def handle_endtag(self, tag):
         print('</%s>' % tag)
-
     def handle_startendtag(self, tag, attrs):
-        print('<%s/>' % tag)
-
+        print('</%s>' % tag)
     def handle_data(self, data):
         print(data)
-
     def handle_comment(self, data):
-        print('<!--', data, '-->')
-
+        print('<--',data,'-->')
     def handle_entityref(self, name):
         print('&%s;' % name)
-
     def handle_charref(self, name):
-        print('&#%s;' % name)
+        print('@#%s;' % name)
+
 
 parser = MyHTMLParser()
 import requests
 def gethtml():
     url = 'https://www.baidu.com'
     html = requests.get(url).text
+    tt = str(html)
+    '''
+    print('-------------------')
+    print(tt)
+    print('-------------------')
+    '''
+    #print(html)
+    #return html
+    return tt
 
-    print(html)
-    return html
-
-
-parser.feed('''<html>
-<head></head>
-<body>
-<!-- test html parser -->
-    <p>Some <a href=\"#\">html</a> HTML&nbsp;tutorial...<br>END</p>
-</body></html>''')
-print('-------')
+parser.feed('''<html><head><title>Advice</title></head><body> 
+<p>The <a href="http://ietf.org" mce_href="http://ietf.org">IETF admonishes: 
+<i>Be strict in what you <b>send</b>.</i></a></p> 
+<form> 
+<input type=submit >  <input type=text name=start size=4></form> 
+</body></html> ''')
+print('---------------------------------------------')
 
 ss = gethtml()
 #parser.feed(gethtml())
 parser.feed(ss)
+
+print('AAAAAAAAAAAAAAAAAAAAA')
+from html.parser import HTMLParser
+from html.entities import name2codepoint
+from urllib import request
+class myhtmlparser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self._event_title = []
+        self._event_location = []
+        self._event_time = []
+        self._reading_title = False
+        self._reading_time = False
+        self._reading_location = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'time' :
+            self._reading_time = True
+        if len(attrs) >= 1:
+            if tag == 'span' and attrs[0][1]=='event-location':
+                self._reading_location = True
+            if tag == 'h3' and attrs[0][1]=='event-title':
+                self._reading_title = True
+    def handle_data(self, data):
+        if self._reading_title:
+            self._event_title.append(data)
+            self._reading_title = False
+        if self._reading_time:
+            self._event_time.append(data)
+            self._reading_time = False
+        if self._reading_location:
+            self._event_location.append(data)
+            self._reading_location = False
+    @property
+    def data(self):
+        self._data = []
+        for i in range(len(self._event_title)):
+            dic = {}
+            dic['title'] = self._event_title[i]
+            dic['time'] = self._event_time[i]
+            dic['location'] = self._event_location[i]
+            self._data.append(dic)
+        return self._data
+def gethtml():
+    with request.urlopen('https://www.python.org/events/python-events/') as f:
+        data = f.read().decode('utf-8')
+    return data
+
+parser = myhtmlparser()
+parser.feed(gethtml())
+for i in parser.data:
+    print(str(i))
