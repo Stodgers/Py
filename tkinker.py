@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter import scrolledtext
 import urllib,requests,re
 import threading #多线程
+import tkinter.messagebox as messagebox
+'''
 def get(a):
     hd = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'}
     url = 'http://www.budejie.com/video/'+str(a)
@@ -45,3 +47,54 @@ label.grid()
 button = Button(root,text = '开始爬取',font = ('微软雅黑',10),command = bushh)
 button.grid()
 root.mainloop()
+'''
+class Application(Frame):
+    def __init__(self,master=None):
+        Frame.__init__(self,master)
+        self.pack()
+        self.createWidgets()
+    '''
+    def createWidgets(self):
+        self.hellolabel = Label(self,text='Hello word!')
+        self.hellolabel.pack()
+        self.vvButton = Button(self,text='quit',command=self.quit)
+        self.vvButton.pack()
+    '''
+    def createWidgets(self):
+        self.nameInput = Entry(self)
+        self.nameInput.pack()
+        self.alertbutton = Button(self,text = 'Hello',command = self.hello)
+        self.alertbutton.pack()
+    def hello(self):
+        name = self.nameInput.get() or 'word'
+        messagebox.showinfo('Message', 'Hello, %s' % name)
+
+'''
+app = Application()
+app.master.title('Hello worddddd!!!')
+app.mainloop()
+'''
+def func(event):
+    xin = Tk()
+    xin.wm_title('Message')
+    t = e.get()
+    g = 'hello,%s'%t
+    la = Label(xin,text=g)
+    la.pack()
+    xin.mainloop()
+
+root = Tk()
+root.wm_title('Hello 233')
+e = Entry(root)
+e.pack()
+b1 = Button(root,text='233')
+b1.bind('<Button-1>',func)
+b1.pack()
+root.mainloop()
+
+
+
+
+
+
+
