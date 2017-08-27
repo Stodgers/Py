@@ -1205,7 +1205,7 @@ parser.feed('''<html><head><title>Advice</title></head><body>
 <input type=submit >  <input type=text name=start size=4></form> 
 </body></html> ''')
 print('---------------------------------------------')
-
+'''
 ss = gethtml()
 #parser.feed(gethtml())
 parser.feed(ss)
@@ -1213,7 +1213,7 @@ parser.feed(ss)
 print('AAAAAAAAAAAAAAAAAAAAA')
 from html.parser import HTMLParser
 from html.entities import name2codepoint
-from urllib import request
+from urllib import request,parse
 class myhtmlparser(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -1261,3 +1261,86 @@ parser = myhtmlparser()
 parser.feed(gethtml())
 for i in parser.data:
     print(str(i))
+with request.urlopen('https://api.douban.com/v2/book/2129650') as f:
+    data = f.read()
+    print('Statues:',f.status,f.reason)
+    for k,v in f.getheaders():
+        print('%s : %s' %(k,v))
+    print('Data:',data.decode('utf-8'))
+
+head = {'user-agent','Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'}
+data = request.urlopen('http://www.baidu.com').read()
+print(data.decode('utf-8'))
+
+
+print('Login to weibo.cn...')
+email = input('Email: ')
+passwd = input('Password: ')
+login_data = parse.urlencode([
+    ('username', email),
+    ('password', passwd),
+    ('entry', 'mweibo'),
+    ('client_id', ''),
+    ('savestate', '1'),
+    ('ec', ''),
+    ('pagerefer', 'https://passport.weibo.cn/signin/welcome?entry=mweibo&r=http%3A%2F%2Fm.weibo.cn%2F')
+])
+
+req = request.Request('https://passport.weibo.cn/sso/login')
+req.add_header('Origin', 'https://passport.weibo.cn')
+req.add_header('User-Agent', 'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 Mobile/10A5376e Safari/8536.25')
+req.add_header('Referer', 'https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=http%3A%2F%2Fm.weibo.cn%2F')
+
+with request.urlopen(req, data=login_data.encode('utf-8')) as f:
+    print('Status:', f.status, f.reason)
+    for k, v in f.getheaders():
+        print('%s: %s' % (k, v))
+    print('Data:', f.read().decode('utf-8'))
+'''
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(('stodgers.com', 80))
+s.send(b'GET / HTTP/1.1\r\nHost: stodgers.com\r\nConnection: close\r\n\r\n')
+buffer = []
+while True:
+    # 每次最多接收1k字节:
+    d = s.recv(1024)
+    if d:
+        buffer.append(d)
+    else:
+        break
+data = b''.join(buffer)
+s.close()
+header, html = data.split(b'\r\n\r\n', 1)
+print(header.decode('utf-8'))
+# 把接收的数据写入文件:
+with open('sina.html', 'wb') as f:
+    f.write(html)
+
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+
+# 第三方 SMTP 服务
+mail_host = "smtp.163.com"  # 设置服务器
+mail_user = "mayc199@163.com"  # 用户名
+mail_pass = "21450082"  # 口令
+
+sender = 'mayc199@163.com'
+receivers = ['2379302497@qq.com']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
+
+message = MIMEText('Python 邮件发送测试...', 'plain', 'utf-8')
+message['From'] = Header("菜鸟教程", 'utf-8')
+message['To'] = Header("测试", 'utf-8')
+
+subject = 'Python SMTP 邮件测试'
+message['Subject'] = Header(subject, 'utf-8')
+
+try:
+    smtpObj = smtplib.SMTP()
+    smtpObj.connect(mail_host, 25)  # 25 为 SMTP 端口号
+    smtpObj.login(mail_user, mail_pass)
+    smtpObj.sendmail(sender, receivers, message.as_string())
+    print("邮件发送成功")
+except smtplib.SMTPException:
+    print("Error: 无法发送邮件")
