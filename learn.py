@@ -1358,6 +1358,7 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(asyncio.wait(task))
 loop.close()
 '''
+import asyncio
 @asyncio.coroutine
 def hg(host):
     print('Get from %s'%host)
