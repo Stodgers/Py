@@ -1606,3 +1606,19 @@ class Model(dict, metaclass=ModelMetaclass):
         rows = await execute(self.__delete__, args)
         if rows != 1:
             logging.warn('failed to remove by primary key: affected rows: %s' % rows)
+def ll(x,y):
+    if x>y:
+        return x
+    return y
+print(ll(1,2))
+import sys
+
+print('The command line arguments are:')
+for i in sys.argv:
+    print(i)
+
+print('\n\nThe PYTHONPATH is', sys.path, '\n')
+
+from hello import say,version
+say()
+print(version)
