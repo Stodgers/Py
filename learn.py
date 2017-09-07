@@ -1623,3 +1623,10 @@ from hello import say,version
 say()
 
 print(version)
+import os,time,zipfile,glob
+target = time.strftime('%Y-%m-%d %H:%M:%S')
+files = glob.glob('D:\Py\\2\\*')
+f = zipfile.ZipFile('D:\Py\\3\\test.zip', 'w', zipfile.ZIP_DEFLATED)
+for file in files:
+    f.write(file,target+' '+os.path.basename(file))
+f.close()
