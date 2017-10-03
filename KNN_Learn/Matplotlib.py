@@ -14,9 +14,9 @@ ax.spines['left'].set_position(('data',0))
 X = np.linspace(-np.pi, np.pi,256,endpoint=True)
 C,S = np.cos(X), np.sin(X)
 
-plot(X,C,color='blue',linewidth=2.0,linestyle='-')
-plot(X,S,color='red',linewidth=2.0,linestyle='-')
-
+plot(X,C,color='blue',linewidth=2.0,linestyle='-',label='Cos')
+plot(X,S,color='red',linewidth=2.0,linestyle='-',label='Sin')
+legend(loc='upper left')
 xlim(-pi*1.1,pi*1.1)
 ylim(-1.1,1.1)
 xticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi],
