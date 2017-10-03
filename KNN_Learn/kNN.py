@@ -115,3 +115,4 @@ def handwritingClassTest():
 
 # 执行算法测试
 handwritingClassTest()
+
