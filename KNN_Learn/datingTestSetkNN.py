@@ -1,6 +1,7 @@
 from numpy import *
 import matplotlib
 import matplotlib.pyplot as plt
+import operator
 def file2matrix(filename):
     fr = open(filename)
     arryline = fr.readlines()
@@ -15,6 +16,7 @@ def file2matrix(filename):
         classLabelvector.append(int(listFrom[-1]))
         index += 1
     return returnmat,classLabelvector
+
 def classify0(inX, dataSet, labels, k):
     # 获取样本数据数量
     dataSetSize = dataSet.shape[0]   #训练集总和  行数！！
@@ -45,23 +47,34 @@ def classify0(inX, dataSet, labels, k):
     # 返回出现频次最高的类别
     return sortedClassCount[0][0]
 
-datamat,datalable = file2matrix('datingTEstSetkNN\datingTestSet2.txt')
 
-fig = plt.figure()
-ax = fig.add_subplot(111)
-ax.scatter(datamat[:,1],datamat[:,2],15.0*array(datalable),15.0*array(datalable))
-plt.show()
-from pylab import *
-from mpl_toolkits.mplot3d import Axes3D
 
-fig = figure()
-ax = Axes3D(fig)
-X = np.arange(-4, 4, 0.25)
-Y = np.arange(-4, 4, 0.25)
-X, Y = np.meshgrid(X, Y)
-R = np.sqrt(X**2 + Y**2)
-Z = np.sin(R)
 
-ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='hot')
+def autonorm(dataSet):
+    minn = dataSet.min(0)
+    maxx = dataSet.max(0)
+    ranges = maxx-minn
+    normset = zeros(shape(dataSet))
+    m =dataSet.shape[0]
+    normDataSet = dataSet - tile(minn, (m, 1) )
+    normDataSet = normDataSet / tile(ranges, (m, 1))
+    return normDataSet, ranges, minn
 
-show()
+
+
+def datingClassTest():
+    ho = 0.1
+    datamat, datalable = file2matrix('datingTEstSetkNN\datingTestSet2.txt')
+    normMat, ranges, minVAl = autonorm(datamat)
+    m = normMat.shape[0]
+    numtest = int(m*ho)
+    errorcount = 0.0
+    for i in range(numtest):
+        classresult = classify0(normMat[i,:],normMat[numtest:m,:],datalable[numtest:m],3)
+        print("the classifier came back with: %d, the real answer is: %d" \
+              % (classresult, datalable[i]))
+        if classresult!=datalable[i] : errorcount += 1.0
+    print('the error number is : %d \nthe rate is: %f%%'%(errorcount,errorcount/float(numtest)*100))
+
+datingClassTest()
+
